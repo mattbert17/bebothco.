@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be Both</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --teal:         #2A7F7F;
+    --teal-mid:     #1F6060;
+    --teal-pale:    #7BBDBD;
+    --midnight:     #1A1A2E;
+    --midnight-mid: #222238;
+    --teal-wash:    #E8F4F4;
+    --teal-wash-2:  #C5E4E4;
+    --off-white:    #F7FAFA;
+    --slate:        #666680;
+    --slate-light:  #9898B0;
+    --terracotta:   #C0622A;
+    --terra-light:  #D07848;
+    --terra-pale:   #F5D5C0;
+    --peach-wash:   #FEF3ED;
+    --border-dark:  rgba(42,127,127,0.12);
+    --border-light: rgba(26,26,46,0.1);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--midnight); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.025; pointer-events: none; z-index: 1000; }
+
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 0 56px; height: 72px; background: rgba(247,250,250,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.14em; color: var(--midnight); text-decoration: none; }
+  .nav-logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+  .nav-links a { font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--midnight); }
+  .nav-cta { color: var(--terracotta) !important; border: 1px solid var(--terracotta) !important; padding: 9px 22px; border-radius: 2px; transition: background 0.2s, color 0.2s !important; }
+  .nav-cta:hover { background: var(--terracotta) !important; color: white !important; }
+
+  /* ── HERO ── */
+  .hero { min-height: 100vh; padding-top: 72px; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+  .hero::after { content: 'MC'; position: absolute; bottom: -60px; left: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 420px; letter-spacing: -0.02em; line-height: 1; color: rgba(26,26,46,0.04); pointer-events: none; user-select: none; z-index: 0; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 64px 80px 56px; position: relative; z-index: 2; background: var(--off-white); }
+  .hero-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; animation: fadeUp 0.7s ease 0.1s both; }
+  .hero-eyebrow-line { width: 32px; height: 1px; background: var(--teal); }
+  .hero-eyebrow span { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(72px, 9vw, 124px); line-height: 0.9; letter-spacing: 0.02em; color: var(--midnight); margin-bottom: 36px; animation: fadeUp 0.7s ease 0.2s both; }
+  .hero-title .accent { color: var(--teal); display: block; }
+  .hero-tagline { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; font-style: italic; line-height: 1.6; color: var(--midnight); max-width: 420px; margin-bottom: 52px; border-left: 2px solid var(--teal); padding-left: 20px; animation: fadeUp 0.7s ease 0.35s both; }
+  .hero-actions { display: flex; gap: 24px; align-items: center; animation: fadeUp 0.7s ease 0.5s both; }
+  .btn-primary { display: inline-block; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: var(--midnight); padding: 15px 36px; text-decoration: none; border-radius: 2px; transition: background 0.2s; }
+  .btn-primary:hover { background: var(--terracotta); }
+  .btn-text { font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); text-decoration: none; border-bottom: 1px solid rgba(102,102,128,0.25); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-text:hover { color: var(--midnight); border-color: var(--midnight); }
+  .hero-right { position: relative; overflow: hidden; background: var(--midnight); z-index: 2; }
+  .hero-right::before { content: ''; position: absolute; top: 0; right: 0; width: 40%; height: 5px; background: var(--teal); }
+  .hero-right::after { content: ''; position: absolute; top: -60px; right: -60px; width: 360px; height: 360px; border-radius: 50%; border: 1px solid rgba(42,127,127,0.1); pointer-events: none; }
+  .hero-right-inner { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 64px; }
+  .distinction-label { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 28px; font-family: 'DM Sans', sans-serif; }
+  .distinction-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; line-height: 1.75; color: var(--teal-wash); margin-bottom: 28px; }
+  .distinction-sub { font-size: 15px; font-weight: 300; line-height: 1.85; color: rgba(232,244,244,0.55); padding-top: 24px; border-top: 1px solid rgba(42,127,127,0.18); }
+
+  /* ── MARQUEE ── */
+  .marquee-strip { background: var(--teal); padding: 18px 0; overflow: hidden; white-space: nowrap; }
+  .marquee-track { display: inline-block; animation: marquee 28s linear infinite; }
+  .marquee-track span { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.18em; color: rgba(255,255,255,0.9); padding: 0 48px; }
+  .marquee-track span.dot { color: rgba(255,255,255,0.4); padding: 0 8px; letter-spacing: 0; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* ── PILLARS ── */
+  .section-pillars { background: var(--midnight); padding: 80px 56px; position: relative; overflow: hidden; }
+  .section-pillars::before { content: ''; position: absolute; top: -40px; right: -40px; width: 400px; height: 400px; border-radius: 50%; border: 1px solid rgba(42,127,127,0.08); pointer-events: none; }
+  .section-pillars::after { content: ''; position: absolute; top: 40px; right: 40px; width: 280px; height: 280px; border-radius: 50%; border: 1px solid rgba(42,127,127,0.05); pointer-events: none; }
+  .pillars-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 280px 1fr; gap: 64px; align-items: start; }
+  .pillars-heading { padding-top: 52px; }
+  .pillars-heading h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 5vw, 72px); letter-spacing: 0.04em; line-height: 1; color: var(--teal-wash); }
+  .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .pillar { padding: 52px 40px; background: rgba(42,127,127,0.04); border: 1px solid rgba(42,127,127,0.1); position: relative; overflow: hidden; transition: background 0.3s, border-color 0.3s; }
+  .pillar:hover { background: rgba(42,127,127,0.1); border-color: rgba(42,127,127,0.3); }
+  .pillar-number { font-family: 'Bebas Neue', sans-serif; font-size: 18px; line-height: 1; color: var(--teal-wash); margin-bottom: 32px; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(42,127,127,0.45); background: rgba(42,127,127,0.12); display: flex; align-items: center; justify-content: center; }
+  .pillar-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; color: var(--teal-wash); margin-bottom: 20px; line-height: 1.2; }
+  .pillar-title em { font-style: italic; color: var(--terra-pale); }
+  .pillar-body { font-size: 14px; font-weight: 300; line-height: 1.85; color: rgba(232,244,244,0.55); }
+
+  /* ── QUOTE BREAK ── */
+  .quote-break { background: var(--midnight-mid); padding: 56px 80px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .quote-break::before { content: '\201C'; position: absolute; top: -80px; left: 40px; font-family: 'Cormorant Garamond', serif; font-size: 400px; line-height: 1; color: rgba(42,127,127,0.08); pointer-events: none; }
+  .quote-break blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 3vw, 38px); font-weight: 400; font-style: normal; line-height: 1.5; color: var(--teal-wash); max-width: 900px; text-align: center; position: relative; z-index: 2; }
+  .quote-break blockquote em { color: var(--terra-pale); font-style: normal; }
+  .quote-break cite { display: block; margin-top: 20px; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); font-style: normal; }
+
+  /* ── WORKSHOPS ── */
+  .section-workshops { padding: 80px 56px; background: var(--slate); position: relative; overflow: hidden; }
+  .section-workshops::before { content: 'SERV'; position: absolute; bottom: -40px; right: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 220px; letter-spacing: 0.04em; line-height: 1; color: rgba(255,255,255,0.04); pointer-events: none; user-select: none; z-index: 0; }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 72px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+  .section-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 6vw, 80px); letter-spacing: 0.04em; line-height: 1; color: #fff; }
+  .section-header-right { max-width: 280px; text-align: right; }
+  .section-header-right p { font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 12px; }
+  .section-header-right a { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-wash); text-decoration: none; }
+  .workshops-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+  .workshop-card { background: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 52px 48px; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; text-decoration: none; display: block; color: inherit; }
+  .workshop-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+  .workshop-card::after { content: ''; position: absolute; top: 0; right: 0; width: 0; height: 0; border-top: 48px solid var(--teal); border-left: 48px solid transparent; opacity: 0; transition: opacity 0.3s; }
+  .workshop-card:hover::after { opacity: 1; }
+  .workshop-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; }
+  .workshop-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--slate); }
+  .workshop-arrow { font-size: 22px; color: var(--teal); opacity: 0; transform: translate(-4px, 4px); transition: opacity 0.25s, transform 0.25s; }
+  .workshop-card:hover .workshop-arrow { opacity: 1; transform: translate(0,0); }
+  .workshop-name { font-family: 'Bebas Neue', sans-serif; font-size: 64px; letter-spacing: 0.04em; line-height: 1; color: var(--midnight); margin-bottom: 20px; }
+  .workshop-desc { font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--slate); max-width: 380px; }
+  .workshop-card-bottom { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(26,26,46,0.06); display: flex; align-items: center; gap: 10px; }
+  .workshop-duration { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(26,26,46,0.3); }
+  .workshop-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(26,26,46,0.2); }
+
+  /* ── APPROACH ── */
+  .section-approach { background: var(--midnight); display: grid; grid-template-columns: 1fr 1fr; min-height: 580px; position: relative; }
+  .approach-graphic { background: #111122; padding: 56px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 1px solid rgba(42,127,127,0.06); }
+  .approach-graphic-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+  .approach-graphic-heading { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4vw, 52px); letter-spacing: 0.04em; line-height: 1; color: var(--teal-wash); margin-bottom: 40px; white-space: nowrap; }
+  .approach-principle { display: flex; align-items: flex-start; gap: 20px; padding: 22px 0; border-bottom: 1px solid rgba(42,127,127,0.08); }
+  .approach-principle:first-of-type { border-top: 1px solid rgba(42,127,127,0.08); }
+  .approach-principle-num { font-family: 'Bebas Neue', sans-serif; font-size: 28px; line-height: 1; color: var(--teal); flex-shrink: 0; width: 36px; opacity: 0.9; }
+  .approach-principle-text { display: flex; flex-direction: column; gap: 4px; }
+  .approach-principle-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.08em; color: var(--teal-wash); line-height: 1.2; }
+  .approach-principle-sub { font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,244,244,0.4); }
+  .approach-content { padding: 56px; display: flex; flex-direction: column; justify-content: flex-start; }
+  .approach-content-spacer { height: 116px; }
+  .approach-desc { padding: 22px 0; border-bottom: 1px solid rgba(42,127,127,0.08); display: flex; align-items: center; }
+  .approach-desc:first-of-type { border-top: 1px solid rgba(42,127,127,0.08); }
+  .approach-desc p { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(232,244,244,0.55); }
+
+  /* ── ABOUT ── */
+  .section-about { padding: 100px 56px; background: var(--off-white); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; position: relative; overflow: hidden; }
+  .section-about::before { content: 'ABOUT'; position: absolute; bottom: -40px; right: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 200px; letter-spacing: 0.04em; line-height: 1; color: rgba(26,26,46,0.03); pointer-events: none; user-select: none; }
+  .about-image { position: relative; }
+  .about-image-frame { width: 100%; aspect-ratio: 4/5; background: var(--midnight-mid); border: 1px solid rgba(42,127,127,0.15); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .about-image-frame::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--teal); }
+  .about-image-placeholder-text { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-style: italic; color: rgba(232,244,244,0.2); letter-spacing: 0.05em; text-align: center; line-height: 1.8; }
+  .about-image-accent-box { position: absolute; bottom: -20px; right: -20px; width: 100px; height: 100px; border: 1px solid rgba(192,98,42,0.3); background: transparent; z-index: 2; }
+  .about-pull-quote { margin-top: 32px; padding: 32px 36px; background: var(--midnight); position: relative; }
+  .about-pull-quote::before { content: '\201C'; position: absolute; top: 8px; left: 20px; font-family: 'Cormorant Garamond', serif; font-size: 64px; color: var(--teal); line-height: 1; opacity: 0.5; }
+  .about-pull-quote p { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; font-weight: 300; line-height: 1.7; color: var(--teal-wash); padding-top: 20px; }
+  .about-content .eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 20px; }
+  .about-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 60px); letter-spacing: 0.04em; line-height: 1.05; color: var(--midnight); margin-bottom: 32px; }
+  .about-content p { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 300; line-height: 1.85; color: var(--slate); margin-bottom: 22px; }
+  .about-content p strong { color: var(--midnight); font-weight: 400; }
+  .about-credential { display: flex; align-items: center; gap: 12px; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border-light); }
+  .about-credential-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+  .about-credential span { font-size: 12px; font-weight: 400; color: var(--slate); }
+
+  /* ── WHY CHOOSE ── */
+  .why-strip { background: rgba(42,127,127,0.06); border-top: 3px solid var(--teal); padding: 56px; }
+  .why-strip-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 20px; font-family: 'DM Sans', sans-serif; }
+  .why-strip p { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 3vw, 36px); font-weight: 400; line-height: 1.65; color: var(--midnight); max-width: 900px; }
+
+  /* ── WRITING ── */
+  .section-writing { padding: 80px 56px; background: white; border-top: 1px solid var(--border-light); position: relative; overflow: hidden; }
+  .writing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; position: relative; z-index: 2; }
+  .essay-card { padding: 44px 36px; background: var(--off-white); border: 1px solid rgba(26,26,46,0.06); position: relative; overflow: hidden; text-decoration: none; display: block; color: inherit; transition: border-color 0.3s, transform 0.3s; }
+  .essay-card:hover { border-color: rgba(42,127,127,0.4); transform: translateY(-3px); }
+  .essay-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--slate); margin-bottom: 24px; }
+  .essay-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; line-height: 1.3; color: var(--midnight); margin-bottom: 16px; }
+  .essay-excerpt { font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--slate); margin-bottom: 32px; }
+  .essay-read-more { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: flex; align-items: center; gap: 8px; }
+  .essay-card-accent { position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--teal); transition: width 0.4s ease; }
+  .essay-card:hover .essay-card-accent { width: 100%; }
+  .writing-cta { text-align: center; margin-top: 48px; position: relative; z-index: 2; }
+  .writing-cta p { font-size: 16px; font-weight: 400; color: var(--slate); margin-bottom: 24px; }
+
+  /* ── CONTACT ── */
+  .section-contact { padding: 80px 56px; background: var(--peach-wash); position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .section-contact::before { content: ''; position: absolute; bottom: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(192,98,42,0.08); pointer-events: none; }
+  .section-contact::after { content: ''; position: absolute; bottom: 0; right: 0; width: 300px; height: 300px; border-radius: 50%; border: 1px solid rgba(192,98,42,0.05); pointer-events: none; }
+  .contact-left { position: relative; z-index: 2; }
+  .contact-left .eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 24px; }
+  .contact-left h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 6vw, 80px); letter-spacing: 0.03em; line-height: 1; color: var(--midnight); margin-bottom: 28px; }
+  .contact-left p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; line-height: 1.8; color: var(--slate); max-width: 440px; }
+  .contact-info { margin-top: 48px; display: flex; flex-direction: column; gap: 0; }
+  .contact-info-item { display: flex; align-items: center; gap: 14px; padding: 20px 0; border-bottom: 1px solid rgba(192,98,42,0.12); }
+  .contact-info-item:first-child { border-top: 1px solid rgba(192,98,42,0.12); }
+  .contact-info-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(192,98,42,0.1); border: 1px solid rgba(192,98,42,0.25); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; color: var(--terracotta); }
+  .contact-info-item span { font-size: 13px; font-weight: 400; color: var(--slate); }
+  .contact-form-col { position: relative; z-index: 2; }
+  .contact-form { display: flex; flex-direction: column; gap: 14px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-input { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; background: rgba(255,255,255,0.8); border: 1px solid rgba(26,26,46,0.15); color: var(--midnight); padding: 15px 18px; border-radius: 2px; outline: none; transition: border-color 0.2s, background 0.2s; width: 100%; }
+  .form-input::placeholder { color: var(--slate-light); }
+  .form-input:focus { border-color: var(--teal); background: rgba(255,255,255,0.95); }
+  textarea.form-input { resize: vertical; min-height: 130px; }
+  .form-submit { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; background: var(--midnight); color: var(--off-white); border: none; padding: 16px 40px; cursor: pointer; border-radius: 2px; align-self: flex-start; transition: background 0.2s; }
+  .form-submit:hover { background: var(--terracotta); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--midnight); padding: 56px; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; border-top: 1px solid rgba(42,127,127,0.1); }
+  .footer-logo-block .logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.14em; color: var(--teal-wash); display: block; margin-bottom: 8px; }
+  .footer-logo-block .logo span { color: var(--teal); }
+  .footer-logo-block .tagline { font-size: 11px; font-style: italic; color: rgba(232,244,244,0.25); letter-spacing: 0.04em; font-family: 'Cormorant Garamond', serif; }
+  .footer-nav { display: flex; gap: 32px; justify-content: center; list-style: none; }
+  .footer-nav a { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,244,244,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: var(--teal-wash); }
+  .footer-right { text-align: right; }
+  .footer-right p { font-size: 11px; color: rgba(232,244,244,0.3); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; } .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; } .hero::after { display: none; }
+    .hero-right { min-height: 400px; } .hero-left { padding: 60px 24px; }
+    .section-pillars { padding: 80px 24px; }
+    .pillars-inner { grid-template-columns: 1fr; gap: 32px; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .section-workshops { padding: 80px 24px; } .workshops-grid { grid-template-columns: 1fr; }
+    .section-approach { grid-template-columns: 1fr; } .approach-graphic { padding: 60px 24px; }
+    .approach-content { padding: 60px 24px; }
+    .section-about { grid-template-columns: 1fr; padding: 80px 24px; gap: 48px; }
+    .section-writing { padding: 80px 24px; } .writing-grid { grid-template-columns: 1fr; }
+    .section-contact { grid-template-columns: 1fr; padding: 80px 24px; gap: 48px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; gap: 32px; padding: 48px 24px; text-align: center; }
+    .footer-nav { justify-content: center; } .footer-right { text-align: center; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .section-header-right { text-align: left; }
+    .quote-break { padding: 80px 24px; }
+    .why-strip { padding: 48px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Be Both<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#approach">The Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#insights">Insights</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>...</span>
+    </div>
+    <h1 class="hero-title">Be<span class="accent"> Both<span> .</span></h1>
+    <p class="hero-tagline">Tagline.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Our Services</a>
+      <a href="#insights" class="btn-text">Read the Insights</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <p class="distinction-label">A Different Kind of Consulting</p>
+      <p class="distinction-text">Today's organizations demand more of their leaders than ever — clarity, steadiness, honesty, and the ability to build cultures where people do their best work.</p>
+      <p class="distinction-sub">At Be Both, we partner with leadership teams to untangle complex challenges and build the operational clarity that drives real, lasting growth. Not quick fixes. Not generic frameworks. Just grounded, human consulting work built on clear thinking, relational intelligence, and shared practice.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Strategic Clarity</span><span class="dot">&bull;</span><span>Operational Excellence</span><span class="dot">&bull;</span><span>Leadership Begins Within</span><span class="dot">&bull;</span><span>Done Together</span><span class="dot">&bull;</span><span>Patterns Before Prescriptions</span><span class="dot">&bull;</span><span>Every Leader Shapes Culture</span><span class="dot">&bull;</span><span>Strategic Clarity</span><span class="dot">&bull;</span><span>Operational Excellence</span><span class="dot">&bull;</span><span>Leadership Begins Within</span><span class="dot">&bull;</span><span>Done Together</span><span class="dot">&bull;</span><span>Patterns Before Prescriptions</span><span class="dot">&bull;</span><span>Every Leader Shapes Culture</span><span class="dot">&bull;</span>
+  </div>
+</div>
+
+<!-- PILLARS -->
+<section class="section-pillars">
+  <div class="pillars-inner">
+    <div class="pillars-heading">
+      <h2>What We<br>Believe</h2>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-number">01</div>
+        <h3 class="pillar-title">Strategy<br><em>begins within.</em></h3>
+        <p class="pillar-body">In the patterns, assumptions, and internal structures that shape how leaders think, relate, and decide. Before anything changes outside, something has to shift inside.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">02</div>
+        <h3 class="pillar-title">Leadership is<br><em>not a solo act.</em></h3>
+        <p class="pillar-body">The best leaders know when to rely on the people around them. The work we do here is built on that same principle. You don't have to figure it out alone.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">03</div>
+        <h3 class="pillar-title">Every leader<br><em>shapes culture.</em></h3>
+        <p class="pillar-body">Intentionally or not. The question is never whether you're influencing the people around you. It's whether you're doing it on purpose.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE BREAK -->
+<div class="quote-break">
+  <blockquote>
+    Good strategy is not about having the right answer. It's about building an organization capable of <em>finding</em> the right answer — again and again.
+    <cite>The Be Both Distinction</cite>
+  </blockquote>
+</div>
+
+<!-- SERVICES -->
+<section class="section-workshops" id="services">
+  <div class="section-header">
+    <h2>The Services</h2>
+    <div class="section-header-right">
+      <p>Engagements built around your inflection points, not our templates.</p>
+      <a href="#">View all services &rarr;</a>
+    </div>
+  </div>
+  <div class="workshops-grid">
+    <a href="#" class="workshop-card">
+      <div class="workshop-card-top"><span class="workshop-tag">Senior Leadership Teams</span><span class="workshop-arrow">&#8599;</span></div>
+      <p class="workshop-name">Strategic<br>Planning</p>
+      <p class="workshop-desc">Translate ambition into coherent strategy. We facilitate leadership alignment, stress-test assumptions, and produce plans that teams actually execute on.</p>
+      <div class="workshop-card-bottom"><span class="workshop-duration">Multi-Week Engagement</span><span class="workshop-dot"></span><span class="workshop-duration">In Person &amp; Remote</span></div>
+    </a>
+    <a href="#" class="workshop-card">
+      <div class="workshop-card-top"><span class="workshop-tag">Whole Organization</span><span class="workshop-arrow">&#8599;</span></div>
+      <p class="workshop-name">Operational<br>Excellence</p>
+      <p class="workshop-desc">Eliminate the friction between strategy and execution. We redesign workflows, reporting structures, and decision rights so that what gets decided actually gets done.</p>
+      <div class="workshop-card-bottom"><span class="workshop-duration">90-Day Sprint</span><span class="workshop-dot"></span><span class="workshop-duration">Embedded Model</span></div>
+    </a>
+    <a href="#" class="workshop-card">
+      <div class="workshop-card-top"><span class="workshop-tag">Leadership &amp; People</span><span class="workshop-arrow">&#8599;</span></div>
+      <p class="workshop-name">Org<br>Design</p>
+      <p class="workshop-desc">Structure follows strategy. We help leadership teams build organizations that scale — from role clarity to team topology to the culture architecture that holds it all together.</p>
+      <div class="workshop-card-bottom"><span class="workshop-duration">Full Assessment</span><span class="workshop-dot"></span><span class="workshop-duration">Pre-Intake Required</span></div>
+    </a>
+    <a href="#" class="workshop-card" style="grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; background: var(--midnight); border-color: rgba(42,127,127,0.2);">
+      <div>
+        <div class="workshop-card-top"><span class="workshop-tag" style="color: var(--teal-pale);">Advisory &bull; Ongoing Partnership</span><span class="workshop-arrow" style="color: var(--terra-pale);">&#8599;</span></div>
+        <p class="workshop-name" style="color: var(--teal-wash); font-size: 52px;">Leadership<br>Advisory</p>
+        <div class="workshop-card-bottom" style="border-color: rgba(232,244,244,0.08);"><span class="workshop-duration" style="color: rgba(232,244,244,0.3);">Monthly Retainer</span><span class="workshop-dot" style="background: rgba(232,244,244,0.2);"></span><span class="workshop-duration" style="color: rgba(232,244,244,0.3);">Senior Leaders Only</span></div>
+      </div>
+      <div>
+        <p class="workshop-desc" style="color: rgba(232,244,244,0.55); max-width: 100%;">A confidential advisory relationship for senior leaders carrying complex decisions. We serve as a trusted thinking partner — not a coach, not a consultant on a project — but a steady presence for the highest-stakes moments in your leadership. Includes monthly deep-work sessions, on-call access, and an annual strategy review.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="section-approach" id="approach">
+  <div class="approach-graphic">
+    <p class="approach-graphic-eyebrow">The Approach</p>
+    <h2 class="approach-graphic-heading">How the work works</h2>
+    <div class="approach-principle">
+      <span class="approach-principle-num">01</span>
+      <div class="approach-principle-text">
+        <p class="approach-principle-title">Diagnosis Before Prescription</p>
+        <p class="approach-principle-sub">Insight before action</p>
+      </div>
+    </div>
+    <div class="approach-principle">
+      <span class="approach-principle-num">02</span>
+      <div class="approach-principle-text">
+        <p class="approach-principle-title">Done Alongside You, Not At You</p>
+        <p class="approach-principle-sub">Embedded, not extracted</p>
+      </div>
+    </div>
+    <div class="approach-principle">
+      <span class="approach-principle-num">03</span>
+      <div class="approach-principle-text">
+        <p class="approach-principle-title">Grounded in Real Experience</p>
+        <p class="approach-principle-sub">Practitioners, not theorists</p>
+      </div>
+    </div>
+    <div class="approach-principle">
+      <span class="approach-principle-num">04</span>
+      <div class="approach-principle-text">
+        <p class="approach-principle-title">Built to Outlast the Engagement</p>
+        <p class="approach-principle-sub">Capability, not dependency</p>
+      </div>
+    </div>
+  </div>
+  <div class="approach-content">
+    <div class="approach-content-spacer" style="height: 114px;"></div>
+    <div class="approach-desc"><p>We look at what is actually driving behaviour before we talk about changing it. Insight comes before action, always. Most organizations are solving the wrong problem.</p></div>
+    <div class="approach-desc"><p>We work inside your team, not from a distance. Our consultants embed with you — attending your meetings, observing your culture, and building trust that makes honest feedback possible.</p></div>
+    <div class="approach-desc"><p>Every senior consultant has led inside an organization. We've sat in the seats you're sitting in. That changes how we listen and what we notice.</p></div>
+    <div class="approach-desc" style="border-bottom: none;"><p>The goal is never to create reliance on us. Every engagement is designed to build internal capability so your team can sustain the gains long after we've left.</p></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section-about" id="about">
+  <div class="about-image">
+    <div class="about-image-frame">
+      <p class="about-image-placeholder-text">team photo<br><span style="font-size:11px;opacity:0.5;">(replace with photo)</span></p>
+    </div>
+    <div class="about-image-accent-box"></div>
+    <div class="about-pull-quote">
+      <p>The best consulting work changes how a leadership team thinks — not just what they decide.</p>
+    </div>
+  </div>
+  <div class="about-content">
+    <p class="eyebrow">Who We Are</p>
+    <h2>Built by people<br>who've been<br>in the room.</h2>
+    <p>Be Both exists because we spent years watching capable leaders struggle — not from lack of skill, but from lack of clarity. The issue was rarely what they were doing. It was the patterns underneath their decisions.</p>
+    <p>We have worked inside organizations across sectors: Fortune 500s, high-growth ventures, public institutions, and family-owned businesses. What interested us most was never the org chart — it was the people doing the work.</p>
+    <p>That interest led us to build a practice grounded in organizational behavior, leadership psychology, and the hard-won lessons of real operational experience. We write, consult, and create learning environments that help leaders see themselves and their organizations more clearly.</p>
+    <p>Our approach is practical, human, and relentlessly focused on <strong>building the awareness and capacity that leads to real, lasting change in how organizations lead and operate.</strong></p>
+    <a href="#" class="btn-text" style="display:inline-block;margin-top:32px;">Read the full story &rarr;</a>
+    <div class="about-credential">
+      <div class="about-credential-dot"></div>
+      <span>Average 14 years of in-seat operational experience per senior consultant</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE STRIP -->
+<div class="why-strip">
+  <p class="why-strip-eyebrow">Why Be Both</p>
+  <p>We create environments where leaders can be honest without performance, explore complexity without overwhelm, and build organizations that feel more human and more capable at the same time.</p>
+</div>
+
+<!-- INSIGHTS / WRITING -->
+<section class="section-writing" id="insights">
+  <div class="section-header">
+    <h2>The Insights</h2>
+    <div class="section-header-right">
+      <p>Essays on strategy, leadership, and what it actually takes to change how organizations move.</p>
+      <a href="#">Read all essays &rarr;</a>
+    </div>
+  </div>
+  <div class="writing-grid">
+    <a href="#" class="essay-card">
+      <p class="essay-tag">On Strategy</p>
+      <h3 class="essay-title">The patterns we carry don't stay internal for long</h3>
+      <p class="essay-excerpt">Most strategy problems aren't clarity problems. They're pattern problems — in how a leadership team relates, decides, and avoids. The question is whether you're willing to look at them honestly.</p>
+      <p class="essay-read-more">Read the essay <span>&rarr;</span></p>
+      <div class="essay-card-accent"></div>
+    </a>
+    <a href="#" class="essay-card">
+      <p class="essay-tag">On Leadership</p>
+      <h3 class="essay-title">Reflection is looking back. This is something else.</h3>
+      <p class="essay-excerpt">There's a practice of looking at how your own thinking shapes your thinking. Most executives haven't named it. But the best ones have built it — and it shows in every room they walk into.</p>
+      <p class="essay-read-more">Read the essay <span>&rarr;</span></p>
+      <div class="essay-card-accent"></div>
+    </a>
+    <a href="#" class="essay-card">
+      <p class="essay-tag">On Teams</p>
+      <h3 class="essay-title">You don't have to do the hard work alone</h3>
+      <p class="essay-excerpt">The best strategic thinking I've ever witnessed happened in rooms where people were willing to be honest with each other. Not coached. Not workshopped. Just genuinely honest.</p>
+      <p class="essay-read-more">Read the essay <span>&rarr;</span></p>
+      <div class="essay-card-accent"></div>
+    </a>
+  </div>
+  <div class="writing-cta">
+    <p>New perspectives every two weeks from the Be Both team.</p>
+    <a href="#" class="btn-primary">Subscribe to the Newsletter</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section-contact" id="contact">
+  <div class="contact-left">
+    <p class="eyebrow">Work Together</p>
+    <h2>Let's start<br>a conversation</h2>
+    <p>Whether you're looking to scope an engagement, explore what the work involves, or simply want to talk through what your organization is facing, we'd love to hear from you.</p>
+    <div class="contact-info">
+      <div class="contact-info-item"><div class="contact-info-icon">&#9993;</div><span>hello@beboth.co</span></div>
+      <div class="contact-info-item"><div class="contact-info-icon">&#9742;</div><span>+1 (212) 555-0100</span></div>
+      <div class="contact-info-item"><div class="contact-info-icon">&#9675;</div><span>New York &nbsp;&bull;&nbsp; London &nbsp;&bull;&nbsp; Singapore</span></div>
+    </div>
+  </div>
+  <div class="contact-form-col">
+    <form class="contact-form" onsubmit="return false;">
+      <div class="form-row">
+        <input type="text" class="form-input" placeholder="Your name">
+        <input type="email" class="form-input" placeholder="Email address">
+      </div>
+      <input type="text" class="form-input" placeholder="Organisation (optional)">
+      <textarea class="form-input" placeholder="What are you working on? What feels hard right now?"></textarea>
+      <button type="submit" class="form-submit">Send a note</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo-block">
+    <span class="logo">Be Both<span>.</span></span>
+    <span class="tagline">Strategic clarity. Lasting impact.</span>
+  </div>
+  <ul class="footer-nav">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#insights">Insights</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-right">
+    <p>Be Both LLC</p>
+    <p style="margin-top:6px;font-style:italic;font-family:'Cormorant Garamond',serif;">Not one or the other. Both.</p>
+  </div>
+</footer>
+
+</body>
+</html>
